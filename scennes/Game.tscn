@@ -1,0 +1,222 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://fonts/Chocolate Bar Demo.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://scennes/Parallax.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/Game.gd" type="Script" id=3]
+[ext_resource path="res://sprites/Players/bunny1_stand.png" type="Texture" id=4]
+[ext_resource path="res://sprites/Environment/ground_grass.png" type="Texture" id=5]
+[ext_resource path="res://sprites/Players/bunny2_stand.png" type="Texture" id=6]
+[ext_resource path="res://sprites/Players/bunny1_jump.png" type="Texture" id=7]
+[ext_resource path="res://sprites/Players/bunny2_jump.png" type="Texture" id=8]
+[ext_resource path="res://samples/jump.wav" type="AudioStream" id=9]
+[ext_resource path="res://sprites/Items/carrot.png" type="Texture" id=10]
+[ext_resource path="res://scennes/PowerUpBar.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scennes/CoinCounter.tscn" type="PackedScene" id=12]
+[ext_resource path="res://sprites/HUD/blue_button.png" type="Texture" id=13]
+[ext_resource path="res://sprites/HUD/carrots.png" type="Texture" id=14]
+[ext_resource path="res://scennes/StageButton.tscn" type="PackedScene" id=15]
+[ext_resource path="res://sprites/HUD/cross.png" type="Texture" id=16]
+[ext_resource path="res://music/Victory.ogg" type="AudioStream" id=17]
+
+[sub_resource type="Animation" id=1]
+resource_name = "happy"
+length = 5.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("bunny1_stand2:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2.9, 3, 3.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 4 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 4 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("bunny2_stand:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 0.6, 1.1, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ ExtResource( 6 ), ExtResource( 6 ), ExtResource( 8 ), ExtResource( 6 ), ExtResource( 6 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("bunny1_stand2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2.9, 3.2, 3.5, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1257.93, 755.583 ), Vector2( 1257.93, 755.583 ), Vector2( 1257.93, 584.583 ), Vector2( 1257.93, 755.583 ), Vector2( 1257.93, 755.583 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("bunny2_stand:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 0.8, 1.1, 5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1098.46, 751.705 ), Vector2( 1098.46, 751.705 ), Vector2( 1098.46, 589.705 ), Vector2( 1098.46, 751.705 ), Vector2( 1098.46, 751.705 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AudioJump:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5, 0.9, 2.9, 3.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false ]
+}
+
+[sub_resource type="DynamicFont" id=2]
+size = 350
+outline_size = 5
+outline_color = Color( 0.447059, 0.72549, 0.941176, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "count"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/path = NodePath("Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ "3", "2", "1" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Game" type="Node"]
+script = ExtResource( 3 )
+
+[node name="SelectStageInterface" type="Node2D" parent="."]
+
+[node name="StageButtons" type="GridContainer" parent="SelectStageInterface"]
+margin_left = 287.301
+margin_top = 225.293
+margin_right = 1443.3
+margin_bottom = 893.293
+size_flags_horizontal = 4
+size_flags_vertical = 2
+columns = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="SelectStageInterface/StageButtons"]
+position = Vector2( 168.919, 56.1803 )
+scale = Vector2( 1.82037, 1.78472 )
+z_index = -1
+texture = ExtResource( 13 )
+
+[node name="StageButton" parent="SelectStageInterface/StageButtons" instance=ExtResource( 15 )]
+margin_right = 501.0
+margin_bottom = 134.0
+icon = ExtResource( 14 )
+flat = true
+music = "res://music/happy.ogg"
+
+[node name="Parallax" parent="SelectStageInterface" instance=ExtResource( 2 )]
+
+[node name="Bunny" type="Node2D" parent="SelectStageInterface"]
+
+[node name="ground_grass" type="Sprite" parent="SelectStageInterface/Bunny"]
+position = Vector2( 1198.83, 897.972 )
+texture = ExtResource( 5 )
+
+[node name="bunny2_stand" type="Sprite" parent="SelectStageInterface/Bunny"]
+position = Vector2( 1098.46, 751.705 )
+texture = ExtResource( 6 )
+
+[node name="bunny1_stand2" type="Sprite" parent="SelectStageInterface/Bunny"]
+position = Vector2( 1257.93, 755.583 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SelectStageInterface/Bunny"]
+autoplay = "happy"
+anims/happy = SubResource( 1 )
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="SelectStageInterface/Bunny"]
+stream = ExtResource( 9 )
+bus = "FX"
+
+[node name="carrot" type="Sprite" parent="SelectStageInterface/Bunny"]
+position = Vector2( 1179.61, 384.228 )
+texture = ExtResource( 10 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Controls" type="Node2D" parent="HUD"]
+visible = false
+
+[node name="CoinCounter" parent="HUD/Controls" instance=ExtResource( 12 )]
+
+[node name="PowerUpBar" parent="HUD/Controls" instance=ExtResource( 11 )]
+
+[node name="Countdown" type="Node2D" parent="HUD"]
+visible = false
+position = Vector2( 960, 540 )
+
+[node name="Label" type="Label" parent="HUD/Countdown"]
+margin_left = -82.7601
+margin_top = -178.869
+margin_right = 78.2399
+margin_bottom = 196.131
+custom_fonts/font = SubResource( 2 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD/Countdown"]
+anims/count = SubResource( 3 )
+
+[node name="BtnStageExit" type="TextureButton" parent="HUD"]
+margin_left = 1672.68
+margin_top = 1.21478
+margin_right = 1818.68
+margin_bottom = 147.215
+texture_normal = ExtResource( 16 )
+expand = true
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioVictory" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+bus = "FX"
+
+[node name="AudioMusic" type="AudioStreamPlayer" parent="."]
+[connection signal="pressed" from="HUD/BtnStageExit" to="." method="_on_BtnStageExit_pressed"]

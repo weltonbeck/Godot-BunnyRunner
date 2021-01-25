@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scripts/Coin.gd" type="Script" id=1]
+[ext_resource path="res://sprites/Items/gold_2.png" type="Texture" id=2]
+[ext_resource path="res://samples/coin.wav" type="AudioStream" id=3]
+[ext_resource path="res://sprites/Items/gold_3.png" type="Texture" id=4]
+[ext_resource path="res://sprites/Particles/portal_yellowParticle.png" type="Texture" id=5]
+[ext_resource path="res://sprites/Items/gold_4.png" type="Texture" id=6]
+[ext_resource path="res://sprites/Items/gold_1.png" type="Texture" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 7 ), ExtResource( 2 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 42.6317
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 20.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 95, 0 )
+initial_velocity = 80.0
+initial_velocity_random = 0.12
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[node name="Coin" type="Area2D"]
+collision_layer = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 2 )
+
+[node name="AudioCoin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+bus = "FX"
+
+[node name="DestroyTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true
+
+[node name="Particles2D" type="Particles2D" parent="."]
+emitting = false
+amount = 15
+one_shot = true
+explosiveness = 0.75
+process_material = SubResource( 3 )
+texture = ExtResource( 5 )
+[connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]
+[connection signal="timeout" from="DestroyTimer" to="." method="_on_DestroyTimer_timeout"]

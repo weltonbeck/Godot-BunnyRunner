@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/PlatformBig.gd" type="Script" id=1]
+[ext_resource path="res://sprites/Environment/ground_grass.png" type="Texture" id=2]
+
+[node name="PlatformBig" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 174.574, -48.3169, -174.458, -47.1277, -188.134, -38.8032, -189.918, -15.0191, -161.972, 45.0359, 159.709, 34.333, 190.628, -15.6137, 188.844, -40.587 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )

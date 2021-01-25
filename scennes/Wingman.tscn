@@ -1,0 +1,163 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://scripts/Wingman.gd" type="Script" id=1]
+[ext_resource path="res://sprites/Enemies/wingMan1.png" type="Texture" id=2]
+[ext_resource path="res://sprites/Enemies/wingMan2.png" type="Texture" id=3]
+[ext_resource path="res://sprites/Enemies/wingMan3.png" type="Texture" id=4]
+[ext_resource path="res://sprites/Enemies/wingMan5.png" type="Texture" id=5]
+[ext_resource path="res://sprites/Enemies/wingMan4.png" type="Texture" id=6]
+[ext_resource path="res://samples/enemyhurt.wav" type="AudioStream" id=7]
+[ext_resource path="res://sprites/Particles/portal_yellowParticle.png" type="Texture" id=8]
+[ext_resource path="res://sprites/Particles/smoke.png" type="Texture" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 55.7098, 36.0675 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 46.25, 16.8752 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "destroy"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Smoke:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 0.406126, 0.353554 ),
+"update": 0,
+"values": [ Vector2( -0.132103, -0.132103 ), Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Smoke:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Smoke:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AnimatedSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[node name="Wingman" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+frame = 2
+playing = true
+
+[node name="Body" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+position = Vector2( 1.33484, 21.3574 )
+shape = SubResource( 2 )
+
+[node name="Head" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Head"]
+position = Vector2( 1.33484, -33.371 )
+shape = SubResource( 3 )
+
+[node name="AudioHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+bus = "FX"
+
+[node name="AnimationSmoke" type="AnimationPlayer" parent="."]
+anims/destroy = SubResource( 4 )
+
+[node name="Smoke" type="Node2D" parent="."]
+visible = false
+scale = Vector2( -0.132103, -0.132103 )
+
+[node name="portal_yellowParticle" type="Sprite" parent="Smoke"]
+position = Vector2( -101.502, -115.729 )
+texture = ExtResource( 8 )
+
+[node name="smoke4" type="Sprite" parent="Smoke"]
+position = Vector2( -116.639, 72.6314 )
+texture = ExtResource( 9 )
+
+[node name="smoke5" type="Sprite" parent="Smoke"]
+position = Vector2( 128.903, 82.7221 )
+texture = ExtResource( 9 )
+
+[node name="smoke2" type="Sprite" parent="Smoke"]
+position = Vector2( 128.903, -38.367 )
+texture = ExtResource( 9 )
+
+[node name="smoke3" type="Sprite" parent="Smoke"]
+position = Vector2( -111.593, -26.5944 )
+texture = ExtResource( 9 )
+
+[node name="smoke6" type="Sprite" parent="Smoke"]
+position = Vector2( 1.08698, 126.449 )
+texture = ExtResource( 9 )
+
+[node name="smoke" type="Sprite" parent="Smoke"]
+position = Vector2( -2.27661, -107.32 )
+texture = ExtResource( 9 )
+
+[node name="portal_yellowParticle2" type="Sprite" parent="Smoke"]
+position = Vector2( 110.404, -120.775 )
+texture = ExtResource( 8 )
+
+[node name="portal_yellowParticle3" type="Sprite" parent="Smoke"]
+position = Vector2( -162.047, 30.5865 )
+texture = ExtResource( 8 )
+
+[node name="portal_yellowParticle4" type="Sprite" parent="Smoke"]
+position = Vector2( 54.9043, 89.4493 )
+texture = ExtResource( 8 )
+
+[node name="portal_yellowParticle5" type="Sprite" parent="Smoke"]
+position = Vector2( -85.2662, 140.685 )
+texture = ExtResource( 8 )
+
+[node name="portal_yellowParticle6" type="Sprite" parent="Smoke"]
+position = Vector2( 155.812, 18.814 )
+texture = ExtResource( 8 )
+[connection signal="body_entered" from="Body" to="." method="_on_Body_body_entered"]
+[connection signal="body_entered" from="Head" to="." method="_on_Head_body_entered"]

@@ -1,0 +1,211 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://resources/Player_Skin_Brown.tres" type="SpriteFrames" id=1]
+[ext_resource path="res://scripts/Player.gd" type="Script" id=2]
+[ext_resource path="res://sprites/Particles/smoke.png" type="Texture" id=3]
+[ext_resource path="res://samples/jump.wav" type="AudioStream" id=4]
+[ext_resource path="res://samples/death.wav" type="AudioStream" id=5]
+[ext_resource path="res://sprites/Items/wing_left.png" type="Texture" id=6]
+[ext_resource path="res://sprites/Items/wing_right.png" type="Texture" id=7]
+[ext_resource path="res://samples/flap.wav" type="AudioStream" id=8]
+
+[sub_resource type="Animation" id=1]
+resource_name = "flap"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("wing_left:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -90.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("wing_right:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 90.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 59.3116, 65.6755 )
+
+[sub_resource type="Animation" id=3]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 41.0122 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 0.591918 ), Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteDustLeft:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1.5, 1.5 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteDustRight:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1.5, 1.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteDustRight:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("SpriteDustLeft:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 0, 0.307 )
+z_index = 20
+collision_mask = 2
+script = ExtResource( 2 )
+
+[node name="Wings" type="Node2D" parent="."]
+visible = false
+
+[node name="wing_left" type="Sprite" parent="Wings"]
+position = Vector2( -57.6958, 17.9777 )
+texture = ExtResource( 6 )
+offset = Vector2( -37.3042, -17.9777 )
+
+[node name="wing_right" type="Sprite" parent="Wings"]
+position = Vector2( 58.0484, 15.7303 )
+texture = ExtResource( 7 )
+offset = Vector2( 36.9516, -15.7303 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Wings"]
+anims/flap = SubResource( 1 )
+
+[node name="AudioFlap" type="AudioStreamPlayer" parent="Wings"]
+stream = ExtResource( 8 )
+bus = "FX"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+animation = "victory"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3.05176e-05, 16.2579 )
+shape = SubResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 420, 0 )
+current = true
+limit_left = 0
+limit_top = 0
+limit_bottom = 0
+
+[node name="AnimationLanded" type="AnimationPlayer" parent="."]
+anims/boing = SubResource( 3 )
+
+[node name="Dust" type="Node2D" parent="."]
+visible = false
+
+[node name="SpriteDustRight" type="Sprite" parent="Dust"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 73, 99 )
+texture = ExtResource( 3 )
+
+[node name="SpriteDustLeft" type="Sprite" parent="Dust"]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -74, 100.5 )
+texture = ExtResource( 3 )
+
+[node name="AnimationDust" type="AnimationPlayer" parent="Dust"]
+anims/dust = SubResource( 4 )
+
+[node name="AudioJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "FX"
+
+[node name="AudioDead" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "FX"
